@@ -19,6 +19,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Trainium AI - Get Fit",
   description: "A modern fitness AI platform to get fit for free.",
+  icons: {
+    icon: '/icons8-gym-48.png', // Can also use PNG/SVG
+  },
 };
 
 export default function RootLayout({

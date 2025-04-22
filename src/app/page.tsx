@@ -4,8 +4,10 @@ import UserPrograms from "@/components/UserPrograms";
 import { ArrowRightIcon } from "lucide-react";
 import Link from "next/link";
 
+
 const HomePage = () => {
   return (
+    <>
     <div className="flex flex-col min-h-screen text-foreground overflow-hidden">
       <section className="relative z-10 py-24 flex-grow">
         <div className="container mx-auto px-4">
@@ -118,6 +120,7 @@ const HomePage = () => {
 
       <UserPrograms />
     </div>
+    </>
   );
 };
 export default HomePage;
