@@ -19,7 +19,29 @@ const GenerateProgramPage = () => {
 
   const messageContainerRef = useRef<HTMLDivElement>(null);
 
+  // SOLUTION to get rid of "Meeting has ended" error
+  useEffect(() => {
+    const originalError = console.error;
+    // override console.error to ignore "Meeting has ended" errors
+    console.error = function (msg, ...args) {
+      if (
+        msg &&
+        (msg.includes("Meeting has ended") ||
+          (args[0] && args[0].toString().includes("Meeting has ended")))
+      ) {
+        console.log("Ignoring known error: Meeting has ended");
+        return; // don't pass to original handler
+      }
 
+      // pass all other errors to the original handler
+      return originalError.call(console, msg, ...args);
+    };
+
+    // restore original handler on unmount
+    return () => {
+      console.error = originalError;
+    };
+  }, []);
   //auto-scroll messages
   useEffect(() => {
     if (messageContainerRef.current) {
@@ -107,7 +129,8 @@ const GenerateProgramPage = () => {
         await vapi.start(process.env.NEXT_PUBLIC_VAPI_WORKFLOW_ID as string, {
           variableValues:{
             full_name: fullName,
-          }
+            user_id: user?.id,
+          },
         });
       } catch (error) {
         console.log("Failed to start call", error);

@@ -113,7 +113,11 @@ const Navbar = () => {
 
         {/* MOBILE MENU BUTTON - Visible only on mobile */}
         <div className="md:hidden flex items-center">
-          {isSignedIn && <UserButton className="mr-2" />}
+        {isSignedIn && (
+            <div className="mr-2">
+              <UserButton />
+            </div>
+        )}
           <Button 
             ref={menuButtonRef}
             variant="ghost" 
